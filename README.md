@@ -1,2 +1,2 @@
 # spotify-api
-A full fledged unofficial Spotify API
+A full fledged unofficial Spotify API (Does not require any APIKEY)
