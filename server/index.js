@@ -35,6 +35,7 @@ import {
 import { getRecommendationsHandler } from "../src/controllers/recommendation.controller.js";
 import { getGenreHandler } from "../src/controllers/genre.controller.js";
 import { getMarketHandler } from "../src/controllers/market.controller.js";
+import { handleException } from "../src/controllers/exception.controller.js";
 
 dotenv.config();
 
@@ -87,9 +88,7 @@ app.get("/", (req, res) => {
   res.status(200).json({Message:"Welcome to the API!"});
 });
 
-app.use("*", (req, res) => {
-  res.status(404).json({ Message: "404 not found" });
-});
+app.use("*", handleException);
 
 app.listen(port, () => {
   // console.log(`Listening on ${port}`);
