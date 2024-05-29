@@ -1,1 +1,0 @@
-export const baseAlbumUrl="https://api.spotify.com/v1/albums"
