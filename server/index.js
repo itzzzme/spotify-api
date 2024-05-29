@@ -83,6 +83,10 @@ app.get("/api/recommendations", getRecommendationsHandler);
 app.get("/api/get-genre", getGenreHandler);
 app.get("/api/market", getMarketHandler);
 
+app.get("/", (req, res) => {
+  res.status(200).json({Message:"Welcome to the API!"});
+});
+
 app.use("*", (req, res) => {
   res.status(404).json({ Message: "404 not found" });
 });
