@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 import {
   getSingleAlbum,
   getMultipleAlbumsHandler,
@@ -36,11 +38,16 @@ import { getRecommendationsHandler } from "../src/controllers/recommendation.con
 import { getGenreHandler } from "../src/controllers/genre.controller.js";
 import { getMarketHandler } from "../src/controllers/market.controller.js";
 import { handleException } from "../src/controllers/exception.controller.js";
+import { handleHomePage } from "../src/controllers/home.controller.js";
 
 dotenv.config();
 
 const port = process.env.PORT || 6969;
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const baseDir = dirname(dirname((__filename)));
+console.log(baseDir)
+app.use(express.static(join(baseDir, "public")));
 
 const albumRoutes = express.Router();
 albumRoutes.get("/:id", getSingleAlbum);
@@ -84,13 +91,11 @@ app.get("/api/recommendations", getRecommendationsHandler);
 app.get("/api/get-genre", getGenreHandler);
 app.get("/api/market", getMarketHandler);
 
-app.get("/", (req, res) => {
-  res.status(200).json({Message:"Welcome to the API!"});
-});
+app.get("/", handleHomePage);
 
 app.use("*", handleException);
 
 app.listen(port, () => {
   // console.log(`Listening on ${port}`);
-  console.log("Hola!")
+  console.log("Hola!");
 });
