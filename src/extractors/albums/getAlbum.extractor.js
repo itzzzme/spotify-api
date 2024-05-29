@@ -1,6 +1,5 @@
-import axios from "axios";
-import { baseAlbumUrl } from "../../configs/album.baseUrl.js";
-import { sendRequest } from "../../helpers/makeRequest.helpers.js";
+import { baseAlbumUrl } from "../../configs/config.js";
+import { sendRequest } from "../../helpers/makeRequest.helper.js";
 
 export async function getAlbum(id) {
   const url = `${baseAlbumUrl}/${id}`;

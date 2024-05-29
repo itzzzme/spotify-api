@@ -1,8 +1,8 @@
 import {
-  getAlbum,
-  getMultipleAlbums,
-  getAlbumTracks,
-} from "../extractors/albums/getAlbum.extractor.js";
+  getShow,
+  getMultipleShows,
+  getShowsEpisodes,
+} from "../extractors/shows/getshows.extractor.js";
 
 const createHandler =
   (fetchFunction, paramsKey = null, queryKey = null) =>
@@ -15,7 +15,6 @@ const createHandler =
         res.status(400).json({ error: `No ${paramsKey || queryKey} provided` });
         return;
       }
-
       const value = paramsValue
         ? encodeURIComponent(paramsValue)
         : encodeURIComponent(queryValue);
@@ -26,10 +25,10 @@ const createHandler =
     }
   };
 
-export const getSingleAlbum = createHandler(getAlbum, "id");
-export const getMultipleAlbumsHandler = createHandler(
-  getMultipleAlbums,
+export const getShowHandler = createHandler(getShow, "id");
+export const getMultipleShowsHandler = createHandler(
+  getMultipleShows,
   null,
   "ids"
 );
-export const getAlbumTracksHandler = createHandler(getAlbumTracks, "id");
+export const getShowsEpisodesHandler = createHandler(getShowsEpisodes, "id");

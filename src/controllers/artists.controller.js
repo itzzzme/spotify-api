@@ -1,56 +1,43 @@
-import { getArtist } from "../extractors/artists/getArtist.extractor.js";
+import {
+  getArtist,
+  getMultipleArtists,
+  getArtistTopTracks,
+  getArtistsAlbums,
+  getRelatedArtist,
+} from "../extractors/artists/getArtist.extractor.js";
 
-export const getArtistHandler = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const data = await getArtist(id);
-    res.json({ result: data });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch album data" });
-  }
-};
-
-export const getMultipleArtistsHandler = async (req, res) => {
-  const { ids } = req.query;
-
-  if (ids) {
+const createHandler =
+  (fetchFunction, paramsKey = null, queryKey = null) =>
+  async (req, res) => {
     try {
-      const data = await getMultipleArtists(encodeURIComponent(ids));
-      res.json({ result: data });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch albums data" });
-    }
-  } else {
-    res.status(400).json({ error: "No album IDs provided" });
-  }
-};
+      const paramsValue = paramsKey ? req.params[paramsKey] : null;
+      const queryValue = queryKey ? req.query[queryKey] : null;
 
-export const getArtistTopTracksHandler = async (req, res) => {
-  const { id } = req.params;
-
-  if (id) {
-    try {
-      const data = await getArtistTopTracks(encodeURIComponent(id));
-      res.json({ result: data });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch albums data" });
-    }
-  } else {
-    res.status(400).json({ error: "No album IDs provided" });
-  }
-};
-export const getRelatedArtistHandler = async (req, res) => {
-    const { id } = req.params;
-  
-    if (id) {
-      try {
-        const data = await getRelatedArtistHandler(encodeURIComponent(id));
-        res.json({ result: data });
-      } catch (error) {
-        res.status(500).json({ error: "Failed to fetch albums data" });
+      if ((paramsKey && !paramsValue) || (queryKey && !queryValue)) {
+        res.status(400).json({ error: `No ${paramsKey || queryKey} provided` });
+        return;
       }
-    } else {
-      res.status(400).json({ error: "No album IDs provided" });
+
+      const value = paramsValue
+        ? encodeURIComponent(paramsValue)
+        : encodeURIComponent(queryValue);
+      const data = await fetchFunction(value);
+      res.json({ result: data });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Failed to fetch data" });
     }
   };
-  
+
+export const getArtistHandler = createHandler(getArtist, "id");
+export const getMultipleArtistsHandler = createHandler(
+  getMultipleArtists,
+  null,
+  "ids"
+);
+export const getArtistTopTracksHandler = createHandler(
+  getArtistTopTracks,
+  "id"
+);
+export const getArtistsAlbumsHandler = createHandler(getArtistsAlbums, "id");
+export const getRelatedArtistHandler = createHandler(getRelatedArtist, "id");

@@ -1,4 +1,3 @@
-// index.js
 import express from "express";
 import dotenv from "dotenv";
 import {
@@ -11,29 +10,83 @@ import {
   getMultipleArtistsHandler,
   getArtistTopTracksHandler,
   getRelatedArtistHandler,
+  getArtistsAlbumsHandler,
 } from "../src/controllers/artists.controller.js";
+import {
+  getPlaylistHandler,
+  getPlaylistItemHandler,
+  getUserPlaylistHandler,
+  getFeaturedPlaylistHandler,
+  getCategoryPlaylistHandler,
+  getPlaylistImageHandler,
+} from "../src/controllers/playlists.controller.js";
+import {
+  getShowHandler,
+  getMultipleShowsHandler,
+  getShowsEpisodesHandler,
+} from "../src/controllers/shows.controller.js";
+import {
+  getTrackHandler,
+  getMultipleTracksHandler,
+  getTracksAudioFeaturesHandler,
+  getMultipleTracksAudioFeaturesHandler,
+  getTracksAudioAnalysisHandler,
+} from "../src/controllers/tracks.controller.js";
+import { getRecommendationsHandler } from "../src/controllers/recommendation.controller.js";
+import { getGenreHandler } from "../src/controllers/genre.controller.js";
+import { getMarketHandler } from "../src/controllers/market.controller.js";
 
 dotenv.config();
 
 const port = process.env.PORT || 6969;
 const app = express();
 
-app.get("/", (req, res) => {
-  res.json({ Message: "Welcome to API" });
-});
+const albumRoutes = express.Router();
+albumRoutes.get("/:id", getSingleAlbum);
+albumRoutes.get("/", getMultipleAlbumsHandler);
+albumRoutes.get("/tracks/:id", getAlbumTracksHandler);
 
-app.get("/albums/:id", getSingleAlbum);
-app.get("/albums", getMultipleAlbumsHandler);
-app.get("/albums/tracks/:id", getAlbumTracksHandler);
-app.get("/artists/:id", getArtistHandler);
-app.get("/artists", getMultipleArtistsHandler);
-app.get("/artists/tracks/:id", getArtistTopTracksHandler);
-app.get("/artists/relatedartists/:id", getRelatedArtistHandler);
+const artistRoutes = express.Router();
+artistRoutes.get("/:id", getArtistHandler);
+artistRoutes.get("/", getMultipleArtistsHandler);
+artistRoutes.get("/tracks/:id", getArtistTopTracksHandler);
+artistRoutes.get("/albums/:id", getArtistsAlbumsHandler);
+artistRoutes.get("/relatedartists/:id", getRelatedArtistHandler);
 
-app.get("*", (req, res) => {
+const playlistRoutes = express.Router();
+playlistRoutes.get("/:id", getPlaylistHandler);
+playlistRoutes.get("/item/:id", getPlaylistItemHandler);
+playlistRoutes.get("/user/:username", getUserPlaylistHandler);
+playlistRoutes.get("/featured/:id", getFeaturedPlaylistHandler);
+playlistRoutes.get("/category/:id", getCategoryPlaylistHandler);
+playlistRoutes.get("/image/:id", getPlaylistImageHandler);
+
+const showRoutes = express.Router();
+showRoutes.get("/:id", getShowHandler);
+showRoutes.get("/", getMultipleShowsHandler);
+showRoutes.get("/episode/:id", getShowsEpisodesHandler);
+
+const trackRoutes = express.Router();
+trackRoutes.get("/:id", getTrackHandler);
+trackRoutes.get("/", getMultipleTracksHandler);
+trackRoutes.get("/audio-features/:id", getTracksAudioFeaturesHandler);
+trackRoutes.get("/audio-features", getMultipleTracksAudioFeaturesHandler);
+trackRoutes.get("/audio-analysis/:id", getTracksAudioAnalysisHandler);
+
+app.use("/api/albums", albumRoutes);
+app.use("/api/artists", artistRoutes);
+app.use("/api/playlists", playlistRoutes);
+app.use("/api/shows", showRoutes);
+app.use("/api/tracks", trackRoutes);
+
+app.get("/api/recommendations", getRecommendationsHandler);
+app.get("/api/get-genre", getGenreHandler);
+app.get("/api/market", getMarketHandler);
+
+app.use("*", (req, res) => {
   res.status(404).json({ Message: "404 not found" });
 });
 
 app.listen(port, () => {
-  console.log(`Listening on https://localhost:${port}`);
+  console.log(`Listening on ${port}`);
 });

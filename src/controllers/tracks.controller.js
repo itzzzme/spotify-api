@@ -1,8 +1,10 @@
 import {
-  getAlbum,
-  getMultipleAlbums,
-  getAlbumTracks,
-} from "../extractors/albums/getAlbum.extractor.js";
+  getTrack,
+  getMultipleTracks,
+  getTracksAudioFeatures,
+  getMultipleTracksAudioFeatures,
+  getTracksAudioAnalysis,
+} from "../extractors/tracks/getTracks.extractor.js";
 
 const createHandler =
   (fetchFunction, paramsKey = null, queryKey = null) =>
@@ -15,7 +17,6 @@ const createHandler =
         res.status(400).json({ error: `No ${paramsKey || queryKey} provided` });
         return;
       }
-
       const value = paramsValue
         ? encodeURIComponent(paramsValue)
         : encodeURIComponent(queryValue);
@@ -26,10 +27,25 @@ const createHandler =
     }
   };
 
-export const getSingleAlbum = createHandler(getAlbum, "id");
-export const getMultipleAlbumsHandler = createHandler(
-  getMultipleAlbums,
+export const getTrackHandler = createHandler(getTrack, "id");
+
+export const getMultipleTracksHandler = createHandler(
+  getMultipleTracks,
   null,
   "ids"
 );
-export const getAlbumTracksHandler = createHandler(getAlbumTracks, "id");
+export const getTracksAudioFeaturesHandler = createHandler(
+  getTracksAudioFeatures,
+  "id"
+);
+
+export const getMultipleTracksAudioFeaturesHandler = createHandler(
+  getMultipleTracksAudioFeatures,
+  null,
+  "ids"
+);
+
+export const getTracksAudioAnalysisHandler = createHandler(
+  getTracksAudioAnalysis,
+  "id"
+);
