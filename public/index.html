@@ -53,14 +53,25 @@
           sans-serif;
         z-index: 2;
       }
-      #pic {
-        width: 250px;
-        height: 250px;
-        border-radius: 50%;
+
+      #gif,
+      #mirrored-gif {
+        height: 300px;
+        width: 300px;
+      }
+
+      #mirrored-gif {
+        transform: scaleX(-1);
+      }
+
+      #icon {
+        width: 300px;
+        height: 150px;
+        border-radius: 50px;
         background-size: cover;
       }
 
-      .profile {
+      .main {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -84,10 +95,17 @@
       a {
         font-size: 1.3rem;
         color: #7cdcfe;
+        text-decoration: none;
       }
       @media (max-width: 700px) {
         .image-container {
           display: none;
+        }
+      }
+      @media (max-width: 330px) {
+        #icon{
+          width: 250px;
+          height: 150px;
         }
       }
     </style>
@@ -95,12 +113,13 @@
   <body>
     <div class="container">
       <h1>Welcome to API 🎉</h1>
-      <div class="profile">
-        <img id="pic" src="spotify.png" alt="" />
+      <div class="main">
+        <img id="icon" src="spotify.png" alt="" />
         <div class="github">
           <i class="fa fa-github" style="font-size: 36px"></i>
           <a href="https://github.com/itzzzme/spotify-api" target="_blank">Click here to refer docs</a>
         </div>
+        
       </div>
     </div>
   </body>
