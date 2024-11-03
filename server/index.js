@@ -46,7 +46,6 @@ const port = process.env.PORT || 6969;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const baseDir = dirname(dirname((__filename)));
-console.log(baseDir)
 app.use(express.static(join(baseDir, "public")));
 
 const albumRoutes = express.Router();
