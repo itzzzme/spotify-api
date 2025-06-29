@@ -1,0 +1,39 @@
+{
+  "name": "spotify-api",
+  "version": "1.0.0",
+  "description": "A full fledged unofficial Spotify API (Does not require any APIKEY)",
+  "main": "/server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itzzzme/spotify-api.git"
+  },
+  "keywords": [
+    "spotify",
+    "API",
+    "spotify-api",
+    "NodeJs",
+    "RESTApi",
+    "music"
+  ],
+  "author": "itzzzme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itzzzme/spotify-api/issues"
+  },
+  "homepage": "https://github.com/itzzzme/spotify-api#readme",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.1"
+  }
+}
