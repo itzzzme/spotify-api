@@ -59,6 +59,9 @@ Host your own instance of anime-api on Render.
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/itzzzme/spotify-api)
 
+> # Documentation
+
+- All api paths are exact same as [Spotify's original API](https://developer.spotify.com/documentation/web-api)
 
 > ### Pull Requests
 
