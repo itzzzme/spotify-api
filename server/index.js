@@ -80,15 +80,15 @@ trackRoutes.get("/audio-features/:id", getTracksAudioFeaturesHandler);
 trackRoutes.get("/audio-features", getMultipleTracksAudioFeaturesHandler);
 trackRoutes.get("/audio-analysis/:id", getTracksAudioAnalysisHandler);
 
-app.use("/api/albums", albumRoutes);
-app.use("/api/artists", artistRoutes);
-app.use("/api/playlists", playlistRoutes);
-app.use("/api/shows", showRoutes);
-app.use("/api/tracks", trackRoutes);
+app.use("/v1/albums", albumRoutes);
+app.use("/v1/artists", artistRoutes);
+app.use("/v1/playlists", playlistRoutes);
+app.use("/v1/shows", showRoutes);
+app.use("/v1/tracks", trackRoutes);
 
-app.get("/api/recommendations", getRecommendationsHandler);
-app.get("/api/get-genre", getGenreHandler);
-app.get("/api/market", getMarketHandler);
+app.get("/v1/recommendations", getRecommendationsHandler);
+app.get("/v1/get-genre", getGenreHandler);
+app.get("/v1/market", getMarketHandler);
 
 app.get("/", handleHomePage);
 
