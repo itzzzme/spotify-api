@@ -1,3 +1,10 @@
+<div align="center">
+
+# ⚠️ Deprecated Repository  
+This repository is **deprecated** and is no longer maintained.
+
+</div>
+
 <p align="center">
       <img
         src="https://raw.githubusercontent.com/itzzzme/spotify-api/refs/heads/main/public/spotify.png"
